@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tank Robot</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width"> 
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<h1>Tank Robot</h1>
+		
+		<img src="/sensor/camera" id="view">
+		
+		<div id="controls">
+			<ul id="nav">
+				<li class="buttons active"><a href="">Buttons</a></li>
+				<li class="joystick"><a href="">Joystick</a></li>
+				<li class="tilt"><a href="">Tilt</a></li>
+			</ul>
+			
+			<div class="panel buttons">
+				<button value="forward">Forward (W)</button>
+				<br>
+				<button value="left">Left (A)</button>
+				<button value="right">Right (D)</button>
+				<br>
+				<button value="back">Backward (S)</button>
+				
+				<p>Click the buttons or use the W, A, S &amp; D keys.</p>
+			</div>
+			
+			<div class="panel joystick">
+				<div id="stickInput" class="xyPlane"><span></span></div>
+				<p>Click on the dot then move your mouse in any direction.</p>
+			</div>
+			
+			<div class="panel tilt">
+				<div id="tiltDisplay" class="xyPlane"><span></span></div>
+				<p>Hold phone horizontal then tilt in any direction.</p>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script type="text/javascript" src="controller.js"></script>
+	</body>
+</html>
