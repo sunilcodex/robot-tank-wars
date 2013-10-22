@@ -4,6 +4,8 @@ Android powered robot tank: http://tamlyn.org/2011/08/android-robot/ - on github
 
 Laser tag example project: http://www.lasertagparts.com/mtdesign.htm
 
+How to make IR: http://www.instructables.com/id/How-to-make-an-IR-infrared-receiver-and-transmit/
+
 IOIO OTG wiki: https://github.com/ytai/ioio/wiki
 
 IP Webcam: https://play.google.com/store/apps/details?id=com.pas.webcam&hl=hr
