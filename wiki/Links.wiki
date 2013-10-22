@@ -1,0 +1,13 @@
+#summary usefull links
+
+Android powered robot tank: http://tamlyn.org/2011/08/android-robot/ - on github: https://github.com/tamlyn/Billy-Robot
+
+Laser tag example project: http://www.lasertagparts.com/mtdesign.htm
+
+IOIO OTG wiki: https://github.com/ytai/ioio/wiki
+
+IP Webcam: https://play.google.com/store/apps/details?id=com.pas.webcam&hl=hr
+
+Chipoteka: http://www.chipoteka.hr/artikli/grupa/3/elektronika-i-alati
+
+Electronic components online shop: http://www.vishay.com/products/ 
