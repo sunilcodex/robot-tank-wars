@@ -13,3 +13,5 @@ IP Webcam: https://play.google.com/store/apps/details?id=com.pas.webcam&hl=hr
 Chipoteka: http://www.chipoteka.hr/artikli/grupa/3/elektronika-i-alati
 
 Electronic components online shop: http://www.vishay.com/products/ 
+
+Mouser online shop: http://eu.mouser.com/
