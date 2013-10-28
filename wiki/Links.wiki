@@ -15,3 +15,5 @@ Chipoteka: http://www.chipoteka.hr/artikli/grupa/3/elektronika-i-alati
 Electronic components online shop: http://www.vishay.com/products/ 
 
 Mouser online shop: http://eu.mouser.com/
+
+Drive motor sizing: http://www.robotshop.com/blog/en/drive-motor-sizing-tool-9698
