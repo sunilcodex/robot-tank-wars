@@ -144,11 +144,11 @@ public class RobotActivity extends IOIOActivity {
 			}
 
 			if (fire) {
-				led_.write(false);
+				// led_.write(false);
 				gunPwmOutput.setDutyCycle(0.9f);
 				fire = false;
 			} else {
-				led_.write(true);
+				// led_.write(true);
 				gunPwmOutput.setDutyCycle(0.0f);
 			}
 
