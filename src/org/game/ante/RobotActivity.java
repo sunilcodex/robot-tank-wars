@@ -9,7 +9,6 @@ import android.os.Message;
 import android.widget.TextView;
 
 public class RobotActivity extends IOIOActivity {
-
 	private TextView status;
 	private SimpleWebServer server;
 
@@ -43,6 +42,13 @@ public class RobotActivity extends IOIOActivity {
 					hit();
 
 					break;
+				case SimpleWebServer.MSG_WHAT_MOTOR:
+
+					int directive = msg.arg1;
+
+					motor(directive);
+
+					break;
 				}
 			}
 		};
@@ -51,8 +57,14 @@ public class RobotActivity extends IOIOActivity {
 		status = (TextView) findViewById(R.id.status);
 
 		logMessage("starting web server...");
-		server = new SimpleWebServer(getResources().getAssets(), handler);
-		server.start();
+		try {
+			server = new SimpleWebServer(getResources().getAssets(), handler);
+			server.start();
+		} catch (Exception e) {
+			logMessage("Exception, Server not started!");
+
+			e.printStackTrace();
+		}
 
 		mpShot = MediaPlayer.create(this, R.raw.shot);
 		mpShot.seekTo(0);
@@ -67,7 +79,9 @@ public class RobotActivity extends IOIOActivity {
 		mpShot.release();
 		mpHit.release();
 
-		server.stopServer();
+		if (server != null) {
+			server.stopServer();
+		}
 	}
 
 	private void fire() {
@@ -82,6 +96,12 @@ public class RobotActivity extends IOIOActivity {
 		mpHit.start();
 
 		logMessage("hit");
+	}
+
+	private void motor(int directive) {
+		robot.motor(directive);
+
+		logMessage("move, directive: " + directive);
 	}
 
 	private void logMessage(String message) {

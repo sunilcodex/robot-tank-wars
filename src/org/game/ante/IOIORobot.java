@@ -16,13 +16,19 @@ import android.util.Log;
  * repetitively until the IOIO gets disconnected.
  */
 public class IOIORobot extends BaseIOIOLooper {
+	final public static int PIN_GUN = 1;
+	final public static int PIN_MOTOR = 46;
+	final public static int PIN_SENZOR = 42;
 
 	/** The on-board LED. */
 	private DigitalOutput led_;
+
 	private PwmOutput gunPwmOutput;
+	private PwmOutput motorPwmOutput;
 	private ReceiverThread receiverThread;
 	private final Handler handler;
 	private boolean fire = false;
+	private boolean moving = false;
 
 	public IOIORobot(Handler handler) {
 		super();
@@ -43,9 +49,9 @@ public class IOIORobot extends BaseIOIOLooper {
 		Log.i("tag", "setup");
 		handler.sendMessage(handler.obtainMessage(1, "IOIO setup"));
 		led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
-		gunPwmOutput = ioio_.openPwmOutput(1, 36000);
+		gunPwmOutput = ioio_.openPwmOutput(PIN_GUN, 36000);
+		motorPwmOutput = ioio_.openPwmOutput(PIN_MOTOR, 1000);
 
-		// irReceiver = ioio_.openDigitalInput(8);
 		receiverThread = new ReceiverThread(handler, ioio_);
 		receiverThread.start();
 	}
@@ -69,6 +75,8 @@ public class IOIORobot extends BaseIOIOLooper {
 			gunPwmOutput.setDutyCycle(0.0f);
 		}
 
+		motorPwmOutput.setDutyCycle(moving ? 0.1f : 0.0f);
+
 		try {
 			Thread.sleep(100);
 		} catch (Exception e) {
@@ -87,5 +95,13 @@ public class IOIORobot extends BaseIOIOLooper {
 
 	public void fire() {
 		fire = true;
+	}
+
+	public void motor(int directive) {
+		if (directive == 0) {
+			moving = false;
+		} else if (directive == 1) {
+			moving = true;
+		}
 	}
 }

@@ -70,6 +70,10 @@ public class ConnectionThread extends Thread {
 					// switch case to java 7
 					if (action.equals(SimpleWebServer.ACTION_FIRE)) {
 						fire();
+					} else if (action.equals(SimpleWebServer.ACTION_MOTOR)) {
+						String directive = queryMap.get("directive");
+
+						motor(directive);
 					}
 				} else {
 					// server a file
@@ -120,6 +124,24 @@ public class ConnectionThread extends Thread {
 
 		message.what = SimpleWebServer.MSG_WHAT_FIRE;
 
+		handler.sendMessage(message);
+	}
+
+	private void motor(String directive) throws Exception {
+		Integer directiveInt = null;
+
+		if (directive.equals("go")) {
+			directiveInt = 1;
+		} else if (directive.equals("stop")) {
+			directiveInt = 0;
+		} else {
+			throw new Exception("Wrong directive");
+		}
+
+		Message message = new Message();
+
+		message.what = SimpleWebServer.MSG_WHAT_MOTOR;
+		message.arg1 = directiveInt;
 		handler.sendMessage(message);
 	}
 
