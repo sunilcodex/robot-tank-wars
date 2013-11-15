@@ -15,9 +15,9 @@ public class RobotActivity extends IOIOActivity {
 
 	private Handler handler;
 
-	private Robot ioioRobotLooper = null;
+	private IOIORobot robot = null;
 
-	MediaPlayer mpExplosion = null;
+	MediaPlayer mpShot = null;
 	MediaPlayer mpHit = null;
 
 	@Override
@@ -54,25 +54,27 @@ public class RobotActivity extends IOIOActivity {
 		server = new SimpleWebServer(getResources().getAssets(), handler);
 		server.start();
 
-		mpExplosion = MediaPlayer.create(this, R.raw.explosion);
-		mpHit = MediaPlayer.create(this, R.raw.explosion);
+		mpShot = MediaPlayer.create(this, R.raw.shot);
+		mpShot.seekTo(0);
+		mpHit = MediaPlayer.create(this, R.raw.hit);
+		mpHit.seekTo(0);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 
-		mpExplosion.release();
+		mpShot.release();
 		mpHit.release();
 
 		server.stopServer();
 	}
 
 	private void fire() {
-		mpExplosion.seekTo(0);
-		mpExplosion.start();
+		mpShot.seekTo(0);
+		mpShot.start();
 
-		ioioRobotLooper.fire();
+		robot.fire();
 	}
 
 	private void hit() {
@@ -93,7 +95,7 @@ public class RobotActivity extends IOIOActivity {
 	 */
 	@Override
 	protected IOIOLooper createIOIOLooper() {
-		ioioRobotLooper = new Robot(handler);
-		return ioioRobotLooper;
+		robot = new IOIORobot(handler);
+		return robot;
 	}
 }
