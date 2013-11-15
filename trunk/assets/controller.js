@@ -22,6 +22,8 @@ function init() {
 function buttonPress() {
 	switch ($(this).val()) {
 		case 'fire' : fire(); break;
+		case 'go' : motor('go'); break;
+		case 'stop' : motor('stop'); break;
 	}
 }
 
@@ -29,6 +31,17 @@ function fire() {
 	var url = '/control?'+$.param({
 		counter:requestCounter,
 		action:'fire'
+	});
+	$.post(url);
+
+	requestCounter++;
+}
+
+function motor(state) {
+	var url = '/control?'+$.param({
+		counter:requestCounter,
+		action:'motor',
+		directive:state
 	});
 	$.post(url);
 

@@ -21,7 +21,7 @@ public class ReceiverThread extends Thread {
 		logMessage("Receiver thread started.");
 
 		try {
-			irReceiver = ioio_.openDigitalInput(8);
+			irReceiver = ioio_.openDigitalInput(IOIORobot.PIN_SENZOR);
 		} catch (ConnectionLostException e) {
 			logMessage("Could not open input pin for receiver!");
 			e.printStackTrace();
@@ -30,7 +30,18 @@ public class ReceiverThread extends Thread {
 		while (isRunning) {
 			try {
 				irReceiver.waitForValue(false);
-				sendHit("Hit!");
+
+				// used to eliminate sporadic noise
+				Thread.sleep(10);
+				if (!irReceiver.read()) {
+					Thread.sleep(30);
+					if (!irReceiver.read()) {
+						Thread.sleep(20);
+						if (!irReceiver.read()) {
+							sendHit("Hit!");
+						}
+					}
+				}
 
 				try {
 					Thread.sleep(200);

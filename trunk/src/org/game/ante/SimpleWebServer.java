@@ -15,23 +15,35 @@ public class SimpleWebServer extends Thread {
 
 	public static final int MSG_WHAT_FIRE = 2;
 	public static final int MSG_WHAT_HIT = 3;
+	public static final int MSG_WHAT_MOTOR = 4;
 	public static final String ACTION_FIRE = "fire";
+	public static final String ACTION_MOTOR = "motor";
 
 	private ServerSocket serverSocket; // socket that listens for clients
 	private final Handler handler; // communicate with UI thread
-	private final String ip; // local IP
-	private final int port; // port to listen on
+	private String ip; // local IP
+	private int port; // port to listen on
 	private final AssetManager assetManager; // used to access app's internal
 												// files
 	private boolean isRunning = true; // not used
 	private ConnectionThread connectionThread;
 	private Socket clientSocket;
 
-	public SimpleWebServer(final AssetManager assetManager, final Handler handler) {
-		this.ip = getLocalIpAddress();
-		this.port = 8080;
+	public SimpleWebServer(final AssetManager assetManager, final Handler handler) throws Exception {
 		this.assetManager = assetManager;
 		this.handler = handler;
+
+		setup();
+	}
+
+	private void setup() throws Exception {
+		ip = getLocalIpAddress();
+
+		if (ip == null) {
+			logMessage("IP address not assigned");
+			throw new Exception();
+		}
+		port = 8080;
 	}
 
 	@Override
