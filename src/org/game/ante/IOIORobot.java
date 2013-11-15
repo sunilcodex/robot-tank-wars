@@ -15,7 +15,7 @@ import android.util.Log;
  * established (which might happen several times!). Then, loop() will be called
  * repetitively until the IOIO gets disconnected.
  */
-public class Robot extends BaseIOIOLooper {
+public class IOIORobot extends BaseIOIOLooper {
 
 	/** The on-board LED. */
 	private DigitalOutput led_;
@@ -24,7 +24,7 @@ public class Robot extends BaseIOIOLooper {
 	private final Handler handler;
 	private boolean fire = false;
 
-	public Robot(Handler handler) {
+	public IOIORobot(Handler handler) {
 		super();
 		this.handler = handler;
 	}
