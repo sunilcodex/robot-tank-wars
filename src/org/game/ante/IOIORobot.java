@@ -1,7 +1,5 @@
 package org.game.ante;
 
-import ioio.lib.api.DigitalOutput;
-import ioio.lib.api.IOIO;
 import ioio.lib.api.PwmOutput;
 import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
@@ -21,14 +19,14 @@ public class IOIORobot extends BaseIOIOLooper {
 	final public static int PIN_SENZOR = 42;
 
 	/** The on-board LED. */
-	private DigitalOutput led_;
+	// private DigitalOutput led_;
 
 	private PwmOutput gunPwmOutput;
 	private PwmOutput motorPwmOutput;
 	private ReceiverThread receiverThread;
 	private final Handler handler;
 	private boolean fire = false;
-	private boolean moving = false;
+	private float motorSpeed = 0.0f;
 
 	public IOIORobot(Handler handler) {
 		super();
@@ -48,9 +46,9 @@ public class IOIORobot extends BaseIOIOLooper {
 	protected void setup() throws ConnectionLostException {
 		Log.i("tag", "setup");
 		handler.sendMessage(handler.obtainMessage(1, "IOIO setup"));
-		led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
+		// led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
 		gunPwmOutput = ioio_.openPwmOutput(PIN_GUN, 36000);
-		motorPwmOutput = ioio_.openPwmOutput(PIN_MOTOR, 1000);
+		motorPwmOutput = ioio_.openPwmOutput(PIN_MOTOR, 400);
 
 		receiverThread = new ReceiverThread(handler, ioio_);
 		receiverThread.start();
@@ -75,7 +73,7 @@ public class IOIORobot extends BaseIOIOLooper {
 			gunPwmOutput.setDutyCycle(0.0f);
 		}
 
-		motorPwmOutput.setDutyCycle(moving ? 0.1f : 0.0f);
+		motorPwmOutput.setDutyCycle(motorSpeed);
 
 		try {
 			Thread.sleep(100);
@@ -99,9 +97,13 @@ public class IOIORobot extends BaseIOIOLooper {
 
 	public void motor(int directive) {
 		if (directive == 0) {
-			moving = false;
+			motorSpeed = 0.0f;
 		} else if (directive == 1) {
-			moving = true;
+			motorSpeed = 1.0f;
+		} else if (directive == 2) {
+			motorSpeed = 0.4f;
+		} else if (directive == 3) {
+			motorSpeed = 0.1f;
 		}
 	}
 }
