@@ -22,7 +22,9 @@ function init() {
 function buttonPress() {
 	switch ($(this).val()) {
 		case 'fire' : fire(); break;
-		case 'go' : motor('go'); break;
+		case 'forward20' : motor('forward20'); break;
+		case 'forward50' : motor('forward50'); break;
+		case 'forwardFull' : motor('forwardFull'); break;
 		case 'stop' : motor('stop'); break;
 	}
 }
