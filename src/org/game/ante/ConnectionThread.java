@@ -130,14 +130,22 @@ public class ConnectionThread extends Thread {
 	private void motor(String directive) throws Exception {
 		Integer directiveInt = null;
 
-		if (directive.equals("forwardFull")) {
-			directiveInt = 1;
-		} else if (directive.equals("forward50")) {
-			directiveInt = 2;
-		} else if (directive.equals("forward20")) {
-			directiveInt = 3;
-		} else if (directive.equals("stop")) {
-			directiveInt = 0;
+		if (directive.equals("forward_L_Full")) {
+			directiveInt = 11;
+		} else if (directive.equals("forward_L_50")) {
+			directiveInt = 12;
+		} else if (directive.equals("forward_L_20")) {
+			directiveInt = 13;
+		} else if (directive.equals("stop_L")) {
+			directiveInt = 10;
+		} else if (directive.equals("forward_R_Full")) {
+			directiveInt = 21;
+		} else if (directive.equals("forward_R_50")) {
+			directiveInt = 22;
+		} else if (directive.equals("forward_R_20")) {
+			directiveInt = 23;
+		} else if (directive.equals("stop_R")) {
+			directiveInt = 20;
 		} else {
 			throw new Exception("Wrong directive");
 		}
