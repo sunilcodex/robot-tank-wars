@@ -22,10 +22,14 @@ function init() {
 function buttonPress() {
 	switch ($(this).val()) {
 		case 'fire' : fire(); break;
-		case 'forward20' : motor('forward20'); break;
-		case 'forward50' : motor('forward50'); break;
-		case 'forwardFull' : motor('forwardFull'); break;
-		case 'stop' : motor('stop'); break;
+		case 'forward_L_20' : motor('forward_L_20'); break;
+		case 'forward_L_50' : motor('forward_L_50'); break;
+		case 'forward_L_Full' : motor('forward_L_Full'); break;
+		case 'stop_L' : motor('stop_L'); break;
+		case 'forward_R_20' : motor('forward_R_20'); break;
+		case 'forward_R_50' : motor('forward_R_50'); break;
+		case 'forward_R_Full' : motor('forward_R_Full'); break;
+		case 'stop_R' : motor('stop_R'); break;
 	}
 }
 

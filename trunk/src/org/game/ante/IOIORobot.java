@@ -15,18 +15,21 @@ import android.util.Log;
  */
 public class IOIORobot extends BaseIOIOLooper {
 	final public static int PIN_GUN = 1;
-	final public static int PIN_MOTOR = 46;
+	final public static int PIN_MOTOR_LEFT = 46;
+	final public static int PIN_MOTOR_RIGHT = 45;
 	final public static int PIN_SENZOR = 42;
 
 	/** The on-board LED. */
 	// private DigitalOutput led_;
 
 	private PwmOutput gunPwmOutput;
-	private PwmOutput motorPwmOutput;
+	private PwmOutput motorLeftPwmOutput;
+	private PwmOutput motorRightPwmOutput;
 	private ReceiverThread receiverThread;
 	private final Handler handler;
 	private boolean fire = false;
-	private float motorSpeed = 0.0f;
+	private float motorLeftSpeed = 0.0f;
+	private float motorRightSpeed = 0.0f;
 
 	public IOIORobot(Handler handler) {
 		super();
@@ -48,7 +51,8 @@ public class IOIORobot extends BaseIOIOLooper {
 		handler.sendMessage(handler.obtainMessage(1, "IOIO setup"));
 		// led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
 		gunPwmOutput = ioio_.openPwmOutput(PIN_GUN, 36000);
-		motorPwmOutput = ioio_.openPwmOutput(PIN_MOTOR, 400);
+		motorLeftPwmOutput = ioio_.openPwmOutput(PIN_MOTOR_LEFT, 400);
+		motorRightPwmOutput = ioio_.openPwmOutput(PIN_MOTOR_RIGHT, 400);
 
 		receiverThread = new ReceiverThread(handler, ioio_);
 		receiverThread.start();
@@ -73,7 +77,8 @@ public class IOIORobot extends BaseIOIOLooper {
 			gunPwmOutput.setDutyCycle(0.0f);
 		}
 
-		motorPwmOutput.setDutyCycle(motorSpeed);
+		motorLeftPwmOutput.setDutyCycle(motorLeftSpeed);
+		motorRightPwmOutput.setDutyCycle(motorRightSpeed);
 
 		try {
 			Thread.sleep(100);
@@ -96,14 +101,22 @@ public class IOIORobot extends BaseIOIOLooper {
 	}
 
 	public void motor(int directive) {
-		if (directive == 0) {
-			motorSpeed = 0.0f;
-		} else if (directive == 1) {
-			motorSpeed = 1.0f;
-		} else if (directive == 2) {
-			motorSpeed = 0.4f;
-		} else if (directive == 3) {
-			motorSpeed = 0.1f;
+		if (directive == 10) {
+			motorLeftSpeed = 0.0f;
+		} else if (directive == 11) {
+			motorLeftSpeed = 1.0f;
+		} else if (directive == 12) {
+			motorLeftSpeed = 0.4f;
+		} else if (directive == 13) {
+			motorLeftSpeed = 0.1f;
+		} else if (directive == 20) {
+			motorRightSpeed = 0.0f;
+		} else if (directive == 21) {
+			motorRightSpeed = 1.0f;
+		} else if (directive == 22) {
+			motorRightSpeed = 0.4f;
+		} else if (directive == 23) {
+			motorRightSpeed = 0.1f;
 		}
 	}
 }
