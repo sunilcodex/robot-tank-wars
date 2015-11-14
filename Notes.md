@@ -1,0 +1,1 @@
+IR Receiver: SFH5110-36
